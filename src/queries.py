@@ -141,7 +141,7 @@ client.assignment.patient.aggregate(
 print("##1##")
 a1 = list(
     client.assignment.pharmacy.find(
-        filter={'telephone':{'$regex':'\+1*'}},  # Complete the filter
+        filter={'telephone':{'$regex':'\+1*'}},
         projection={"name": 1, "_id": 0},
     )
 )
@@ -161,7 +161,7 @@ a1 = list(
 print("##2##")
 a2 = list(
     client.assignment.patient.find(
-        filter={"birthdate" : {'$gt' : datetime.datetime(2000, 1, 1, 0, 0)}},  # Complete the filter
+        filter={"birthdate" : {'$gt' : datetime.datetime(2000, 1, 1, 0, 0)}},
         projection={"national_id": 1, "_id": 0},
     )
 )
@@ -180,7 +180,7 @@ a2 = list(
 # تعداد نسخه هایی که دارای حداقل 15 دارو هستند
 print("##3##")
 a3 = client.assignment.prescription.find(
-    filter={}  # Complete the filter
+    filter={'items': {'$exists': True}, '$where':'this.items.length > 15'}
 ).count()
 # print(a3)
 
