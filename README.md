@@ -1,7 +1,7 @@
 # mongodb-assignment
 To initialize assignment database, run:
 ```shell
-mongorestore -d assignment assignment/
+mongorestore -d assignment src/assignment/
 ```
 
 To export assignment database, run:
