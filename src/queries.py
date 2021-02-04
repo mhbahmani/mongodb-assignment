@@ -352,7 +352,7 @@ a11 = list(
 print("##12##")
 a12 = list(
     client.assignment.comment.find(
-        filter={},  # Complete the filter
+        filter={'text': {'$regex': '.*(good|great).*'}},
         projection={"_id": 0, "text": 1},
     )
 )
