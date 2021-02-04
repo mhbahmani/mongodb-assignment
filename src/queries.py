@@ -141,7 +141,7 @@ client.assignment.patient.aggregate(
 print("##1##")
 a1 = list(
     client.assignment.pharmacy.find(
-        filter={},  # Complete the filter
+        filter={'telephone':{'$regex':'\+1*'}},  # Complete the filter
         projection={"name": 1, "_id": 0},
     )
 )
@@ -161,7 +161,7 @@ a1 = list(
 print("##2##")
 a2 = list(
     client.assignment.patient.find(
-        filter={},  # Complete the filter
+        filter={"birthdate" : {'$gt' : datetime.datetime(2000, 1, 1, 0, 0)}},  # Complete the filter
         projection={"national_id": 1, "_id": 0},
     )
 )
