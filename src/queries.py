@@ -269,7 +269,32 @@ a5 = client.assignment.sale.aggregate(
 print("##6##")
 a6 = list(
     client.assignment.sale.aggregate(
-        [  # Complete the pipeline
+        [
+            {
+                '$sort': {'price': -1}
+            },
+            {
+                '$lookup': {
+                    'from': 'drug',
+                    'localField': 'drug_id',
+                    'foreignField': '_id',
+                    'as': 'drug'
+                }
+            },
+            {
+                '$unwind': '$drug'
+            },
+            {
+                '$replaceRoot': {'newRoot': '$drug'}
+            },
+            {
+                '$project': {
+                    '_id': 0,
+                    'name': 1,
+                    'formula': 1
+                }
+            },
+            {   '$limit' : 5 }
         ]
     )
 )
