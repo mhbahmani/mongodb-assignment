@@ -314,7 +314,30 @@ a6 = list(
 print("##7##")
 a7 = list(
     client.assignment.prescription.aggregate(
-        [  # Complete the pipeline
+        [
+            {
+                '$match': {'date': datetime.datetime(2020, 9, 23, 0, 0)}
+            },
+            {
+                '$lookup': {
+                    'from': 'drug',
+                    'localField': 'items.drug_id',
+                    'foreignField': '_id',
+                    'as': 'drug'
+                }
+            },
+            {
+                '$unwind': '$drug'
+            },
+            {
+                '$replaceRoot': {'newRoot': '$drug'}
+            },
+            {
+                '$project': {
+                    '_id': 0,
+                    'name': 1,
+                }
+            },
         ]
     )
 )
