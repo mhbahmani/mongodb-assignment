@@ -296,7 +296,7 @@ a8 = list(
 print("##9##")
 a9 = list(
     client.assignment.user.find(
-        filter={},  # Complete the filter
+        filter={'basket': {'$size': 10}},  # Complete the filter
         projection={"email": 1, "_id": 0},
     )
 )
