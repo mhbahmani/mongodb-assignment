@@ -334,7 +334,30 @@ a7 = list(
 print("##8##")
 a8 = list(
     client.assignment.drug.aggregate(
-        [  # Complete the pipeline
+        [
+            {
+                '$match': {'formula': 'C2H6Na4O12'}
+            },
+            {
+                '$lookup': {
+                    'from': 'company',
+                    'localField': 'company_id',
+                    'foreignField': '_id',
+                    'as': 'company'
+                }
+            },
+            {
+                '$unwind': '$company'
+            },
+            {
+                '$replaceRoot': {'newRoot': '$company'}
+            },
+            {
+                '$project': {
+                    '_id': 0,
+                    'name': 1,
+                }
+            }
         ]
     )
 )
