@@ -227,7 +227,30 @@ a4 = list(
 # نام داروخانه ای که دارویی به گرانترین قیمت به آن فروخته شده است
 print("##5##")
 a5 = client.assignment.sale.aggregate(
-    [  # Complete the pipeline
+    [
+        {
+            '$sort': {'price': -1}
+        },
+        {
+            '$lookup': {
+                'from': 'pharmacy',
+                'localField': 'pharmacy_id',
+                'foreignField': '_id',
+                'as': 'pharmacy'
+            }
+        },
+        {
+            '$unwind': '$pharmacy'
+        },
+        {
+            '$replaceRoot': {'newRoot': '$pharmacy'}
+        },
+        {
+            '$project': {
+                '_id': 0,
+                'name': 1
+            }
+        }
     ]
 ).next()
 # print(a5)
