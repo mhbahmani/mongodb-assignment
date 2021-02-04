@@ -370,7 +370,15 @@ a12 = list(
 
 print("##13##")
 a13 = client.assignment.comment.aggregate(
-    []  # Complete the pipeline
+    [
+        { "$match": {
+                "rating": 5
+            }
+        },
+        {
+            "$count": "count"
+        }
+    ]
 ).next()
 # print(a13)
 
