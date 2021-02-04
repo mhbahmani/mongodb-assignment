@@ -314,7 +314,16 @@ a9 = list(
 
 print("##10##")
 a10 = client.assignment.product_item.aggregate(
-    [  # Complete the pipeline
+    [
+        { 
+            '$match': {'size': 'XL'}
+        },
+        {
+            '$group': {'_id': None, 'sum': {'$sum': '$quantity'} }
+        },
+        {
+            '$project': {'_id': 0}
+        }
     ]
 ).next()
 # print(a10)
