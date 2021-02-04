@@ -198,7 +198,17 @@ a3 = client.assignment.prescription.find(
 print("##4##")
 a4 = list(
     client.assignment.patient.aggregate(
-        [  # Complete the pipeline
+        [
+            {
+                "$lookup": {
+                    "from": "doctor",
+                    "localField": "doctor_id",
+                    "foreignField": "_id",
+                    "as": "doctor",
+                }
+            },
+            {"$match": {"doctor.first_name": "Robert"}},
+            {'$project': {'_id': 0, 'national_id': 1}}
         ]
     )
 )
