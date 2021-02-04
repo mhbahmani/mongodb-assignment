@@ -333,7 +333,7 @@ a10 = client.assignment.product_item.aggregate(
 print("##11##")
 a11 = list(
     client.assignment.driver.find(
-        filter={},  # Complete the filter
+        filter={'license_plate': {'$regex': '.+25$'}},
         projection={"_id": 0, "national_id": 1},
     )
 )
